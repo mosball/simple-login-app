@@ -42,10 +42,86 @@ header > #header-intro {
     background-color:#ffffff;
     line-height: 1.5;
     white-space:normal;
+    display: none;
 }
 
 #default-body p {
     margin: 0;
+}
+
+form {
+    width:400px;
+    margin: 0 auto;
+}
+
+form h3 {
+    text-align: center;
+    color:#5a96ff;
+}
+
+.join-form-box-input {
+    margin-top:5px;
+    margin-bottom:10px;
+}
+
+.join-form-box-input > input,
+.join-form-box-input > select {
+    outline: none;
+    border:1px solid #e0e0e0;
+}
+
+.join-form-box:not(#birth) > .join-form-box-input > input,
+.join-form-box:not(#birth) > .join-form-box-input > select {
+    width:100%;
+    height:35px;
+}
+
+.join-form-box-title {
+    color:#000000;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#birth > .join-form-box-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#birth > .join-form-box-input > input,
+#birth > .join-form-box-input > select {
+    width:32%;
+    height:35px;
+}
+
+#rules {
+    display: flex;
+    align-items: center;
+}
+
+#rules > span {
+    text-decoration: underline;
+}
+
+#rules > input {
+    width:15px;
+    height:15px;
+    border-radius: 0;
+}
+
+#btn-group {
+    margin-top:3px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#init-btn,
+#join-btn {
+    width:49%;
+    height:35px;
+    border:none;
+    background-color:#5a96ff;
+    color:#ffffff;
 }
 
 footer {

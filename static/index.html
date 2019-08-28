@@ -13,10 +13,10 @@
             2019 부스트캠프 멤버십 1주차 과제
         </p>
         <div id="header-btn-group">
-            <button id="login-btn">
+            <button id="login">
                 로그인
             </button>
-            <button id="join-btn">
+            <button id="join">
                 회원가입
             </button>
         </div>
@@ -67,7 +67,127 @@
 
         </form>
         <form id="join-form" method="POST">
-
+            <div class="join-form-box">
+                <h3>회원가입</h3>
+            </div>
+            <div id="id" class="join-form-box">
+                <div class="join-form-box-title">
+                    아이디
+                </div>
+                <div class="join-form-box-input">
+                    <input type="text" name="id" />
+                </div>
+                <div class="join-form-box-infomsg">
+                </div>
+            </div>
+            <div id="password" class="join-form-box">
+                <div class="join-form-box-title">
+                    비밀번호
+                </div>
+                <div class="join-form-box-input">
+                    <input type="password" name="password" />
+                </div>
+                <div class="join-form-box-infomsg">
+                </div>
+            </div>
+            <div id="password2" class="join-form-box">
+                <div class="join-form-box-title">
+                    비밀번호 재확인
+                </div>
+                <div class="join-form-box-input">
+                    <input type="password" name="password2" />
+                </div>
+                <div class="join-form-box-infomsg">
+                </div>
+            </div>
+            <div id="name" class="join-form-box">
+                <div class="join-form-box-title">
+                    이름
+                </div>
+                <div class="join-form-box-input">
+                    <input type="text" name="name" />
+                </div>
+                <div class="join-form-box-infomsg">
+                </div>
+            </div>
+            <div id="birth" class="join-form-box">
+                <div class="join-form-box-title">
+                    생년월일
+                </div>
+                <div class="join-form-box-input">
+                    <input type="text" name="year" placeholder=" 년(4자)" />
+                    <select name="month">
+                        <option selected>월</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                    </select>
+                    <input type="text" name="day" placeholder=" 일" />
+                </div>
+                <div class="join-form-box-infomsg">
+                </div>
+            </div>
+            <div id="gender" class="join-form-box">
+                <div class="join-form-box-title">
+                    성별
+                </div>
+                <div class="join-form-box-input">
+                    <select name="gender">
+                        <option selected>성별</option>
+                        <option>남성</option>
+                        <option>여성</option>
+                    </select>
+                </div>
+                <div class="join-form-box-infomsg">
+                </div>
+            </div>
+            <div id="email" class="join-form-box">
+                <div class="join-form-box-title">
+                    이메일
+                </div>
+                <div class="join-form-box-input">
+                    <input type="text" name="email" />
+                </div>
+                <div class="join-form-box-infomsg">
+                </div>
+            </div>
+            <div id="phone" class="join-form-box">
+                <div class="join-form-box-title">
+                    휴대전화
+                </div>
+                <div class="join-form-box-input">
+                    <input type="text" name="phone" placeholder=" - 없이 입력하세요. ex:01012341234" />
+                </div>
+                <div class="join-form-box-infomsg">
+                </div>
+            </div>
+            <div id="interest" class="join-form-box">
+                <div class="join-form-box-title">
+                    관심사
+                </div>
+                <div class="join-form-box-input">
+                    <input type="text" name="interest" />
+                </div>
+                <div class="join-form-box-infomsg">
+                </div>
+            </div>
+            <div id="rules" class="join-form-box">
+                <span class="join-form-box-title">약관에 동의합니다.</span>
+                <input type="checkbox" name="rules" disabled />
+            </div>
+            <div id="btn-group" class="join-form-box">
+                <button id="init-btn">초기화</button>
+                <button id="join-btn">가입하기</button>
+            </div>
         </form>
     </div>
     <footer>
