@@ -82,54 +82,59 @@
             <div class="join-form-box">
                 <h3>회원가입</h3>
             </div>
-            <div id="id" class="join-form-box">
+
+            <div id="id-field" class="join-form-box">
                 <div class="join-form-box-title">
                     아이디
                 </div>
                 <div class="join-form-box-input">
-                    <input type="text" name="id" />
+                    <input type="text" name="id" data-target="#id-field > .join-form-box-infomsg"/>
                 </div>
                 <div class="join-form-box-infomsg">
                 </div>
             </div>
-            <div id="password" class="join-form-box">
+
+            <div id="password-field" class="join-form-box">
                 <div class="join-form-box-title">
                     비밀번호
                 </div>
                 <div class="join-form-box-input">
-                    <input type="password" name="password" />
+                    <input type="password" name="password" data-target="#password-field > .join-form-box-infomsg"/>
                 </div>
                 <div class="join-form-box-infomsg">
                 </div>
             </div>
-            <div id="password2" class="join-form-box">
+
+            <div id="password2-field" class="join-form-box">
                 <div class="join-form-box-title">
                     비밀번호 재확인
                 </div>
                 <div class="join-form-box-input">
-                    <input type="password" name="password2" />
+                    <input type="password" name="password2" data-target="#password2-field > .join-form-box-infomsg"/>
                 </div>
                 <div class="join-form-box-infomsg">
                 </div>
             </div>
-            <div id="name" class="join-form-box">
+
+            <div id="name-field" class="join-form-box">
                 <div class="join-form-box-title">
                     이름
                 </div>
                 <div class="join-form-box-input">
-                    <input type="text" name="name" />
+                    <input type="text" name="name"/>
                 </div>
                 <div class="join-form-box-infomsg">
                 </div>
             </div>
-            <div id="birth" class="join-form-box">
+
+            <div id="birth-field" class="join-form-box">
                 <div class="join-form-box-title">
                     생년월일
                 </div>
                 <div class="join-form-box-input">
-                    <input type="text" name="year" placeholder=" 년(4자)" />
+                    <input type="text" name="year" placeholder=" 년(4자)" data-target="#birth-field > .join-form-box-infomsg"/>
                     <select name="month">
-                        <option selected>월</option>
+                        <option selected hidden>월</option>
                         <option value = 1>1</option>
                         <option value = 2>2</option>
                         <option value = 3>3</option>
@@ -143,59 +148,66 @@
                         <option value = 11>11</option>
                         <option value = 12>12</option>
                     </select>
-                    <input type="text" name="day" placeholder=" 일" />
+                    <input type="text" name="day" placeholder=" 일" data-target="#birth-field > .join-form-box-infomsg"/>
                 </div>
                 <div class="join-form-box-infomsg">
                 </div>
             </div>
-            <div id="gender" class="join-form-box">
+
+            <div id="gender-field" class="join-form-box">
                 <div class="join-form-box-title">
                     성별
                 </div>
                 <div class="join-form-box-input">
                     <select name="gender">
-                        <option selected>성별</option>
-                        <option>남성</option>
-                        <option>여성</option>
+                        <option selected hidden>성별</option>
+                        <option value = 'male'>남성</option>
+                        <option value = 'female'>여성</option>
                     </select>
                 </div>
                 <div class="join-form-box-infomsg">
                 </div>
             </div>
-            <div id="email" class="join-form-box">
+
+            <div id="email-field" class="join-form-box">
                 <div class="join-form-box-title">
                     이메일
                 </div>
                 <div class="join-form-box-input">
-                    <input type="text" name="email" />
+                    <input type="text" name="email" data-target="#email-field > .join-form-box-infomsg"/>
                 </div>
                 <div class="join-form-box-infomsg">
                 </div>
             </div>
-            <div id="phone" class="join-form-box">
+
+            <div id="phone-field" class="join-form-box">
                 <div class="join-form-box-title">
                     휴대전화
                 </div>
                 <div class="join-form-box-input">
-                    <input type="text" name="phone" placeholder=" - 없이 입력하세요. ex:01012341234" />
+                    <input type="text" name="phone" placeholder=" - 없이 입력하세요. ex:01012341234" 
+                    data-target="#phone-field > .join-form-box-infomsg"/>
                 </div>
                 <div class="join-form-box-infomsg">
                 </div>
             </div>
-            <div id="interest" class="join-form-box">
+
+            <div id="interest-field" class="join-form-box">
                 <div class="join-form-box-title">
                     관심사
                 </div>
                 <div class="join-form-box-input">
-                    <input type="text" name="interest" />
+                    <input type="text" name="interest" data-target="#interest-field > .join-form-box-infomsg"/>
                 </div>
                 <div class="join-form-box-infomsg">
                 </div>
             </div>
+
             <div id="rules" class="join-form-box">
                 <span class="join-form-box-title">약관에 동의합니다.</span>
                 <input type="checkbox" name="rules" disabled />
             </div>
+
             <div id="btn-group" class="join-form-box">
                 <button id="init-btn">초기화</button>
                 <button id="join-btn">가입하기</button>

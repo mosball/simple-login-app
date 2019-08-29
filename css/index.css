@@ -79,8 +79,8 @@ form h3 {
     border:1px solid #e0e0e0;
 }
 
-.join-form-box:not(#birth) > .join-form-box-input > input,
-.join-form-box:not(#birth) > .join-form-box-input > select {
+.join-form-box:not(#birth-field) > .join-form-box-input > input,
+.join-form-box:not(#birth-field) > .join-form-box-input > select {
     width:100%;
 }
 
@@ -90,15 +90,20 @@ form h3 {
     font-size: 14px;
 }
 
-#birth > .join-form-box-input {
+#birth-field > .join-form-box-input {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-#birth > .join-form-box-input > input,
-#birth > .join-form-box-input > select {
+#birth-field > .join-form-box-input > input,
+#birth-field > .join-form-box-input > select {
     width:32%;
+}
+
+.join-form-box-infomsg {
+    font-size: 14px;
+    margin-bottom:10px;
 }
 
 #rules {
@@ -151,4 +156,12 @@ footer {
 
 button:hover {
     cursor: pointer;
+}
+
+.red-text {
+    color:red;
+}
+
+.green-text {
+    color:green;
 }

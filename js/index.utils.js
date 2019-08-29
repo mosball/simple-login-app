@@ -3,6 +3,7 @@ const utils = {
         this.registerInputFocusEvent()
         this.registerShowBtnClickEvent()
     },
+
     registerInputFocusEvent() {
         const inputs = document.querySelectorAll('.join-form-box-input > *')
     
@@ -16,6 +17,7 @@ const utils = {
             })
         })
     },
+    
     registerShowBtnClickEvent() {
         const showLogin = document.querySelector('#show-login')
         const showJoin  = document.querySelector('#show-join')
