@@ -46,6 +46,7 @@ header > #header-intro > a {
     background-color:#ffffff;
     line-height: 1.5;
     white-space:normal;
+    font-family: '맑은고딕'
 }
 
 header p,
@@ -75,6 +76,7 @@ form h3 {
 
 .join-form-box-input > input,
 .join-form-box-input > select {
+    padding:3px;
     outline: none;
     border:1px solid #e0e0e0;
 }
