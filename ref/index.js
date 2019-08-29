@@ -16,4 +16,3 @@ const registerInputFocusEvent = () => {
 window.onload = () => {
     registerInputFocusEvent()
 }
-
