@@ -28,6 +28,11 @@ header > #header-intro {
     font-weight: 600;
 }
 
+header > #header-intro > a {
+    color:#ffffff;
+    text-decoration: none;
+}
+
 #body {
     min-height: 600px;
     padding:60px;
@@ -35,13 +40,12 @@ header > #header-intro {
 }
 
 #default-body {
-    width:600px;
+    width:800px;
     padding:30px;
     margin: 0 auto;
     background-color:#ffffff;
     line-height: 1.5;
     white-space:normal;
-    display: none;
 }
 
 header p,
@@ -59,7 +63,8 @@ form h3 {
     color:#5a96ff;
 }
 
-#join-form {
+#join-form,
+#login-form {
     display: none;
 }
 
