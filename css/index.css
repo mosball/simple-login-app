@@ -75,14 +75,17 @@ form h3 {
 }
 
 .join-form-box-input > input,
-.join-form-box-input > select {
+.join-form-box-input > select,
+.join-form-box-input > #interest-box {
     padding:3px;
     outline: none;
     border:1px solid #e0e0e0;
+    background-color:#ffffff;
 }
 
 .join-form-box:not(#birth-field) > .join-form-box-input > input,
-.join-form-box:not(#birth-field) > .join-form-box-input > select {
+.join-form-box:not(#birth-field) > .join-form-box-input > select,
+.join-form-box:not(#birth-field) > .join-form-box-input > #interest-box {
     width:100%;
 }
 
@@ -101,6 +104,11 @@ form h3 {
 #birth-field > .join-form-box-input > input,
 #birth-field > .join-form-box-input > select {
     width:32%;
+}
+
+#interest-box > input {
+    outline: none;
+    border:none;
 }
 
 .join-form-box-infomsg {
@@ -139,6 +147,7 @@ form h3 {
 
 .join-form-box-input > input,
 .join-form-box-input > select,
+.join-form-box-input > #interest-box,
 #init-btn,
 #join-btn,
 #login-form > .row > input {
@@ -178,6 +187,6 @@ button:hover {
 .join-form-box-input > select[name=gender]:focus,
 .join-form-box-input > input[name=email]:focus,
 .join-form-box-input > input[name=phone]:focus,
-.join-form-box-input > input[name=interest]:focus {
+.join-form-box-input > #interest-box > input:focus {
     border:1px solid #5a96ff;
 }
