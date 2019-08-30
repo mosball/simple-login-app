@@ -167,3 +167,17 @@ button:hover {
 .green-text {
     color:green;
 }
+
+.join-form-box-input > input[name=id]:focus,
+.join-form-box-input > input[name=password]:focus,
+.join-form-box-input > input[name=password2]:focus,
+.join-form-box-input > input[name=name]:focus,
+.join-form-box-input > input[name=year]:focus,
+.join-form-box-input > select[name=month]:focus,
+.join-form-box-input > input[name=day]:focus,
+.join-form-box-input > select[name=gender]:focus,
+.join-form-box-input > input[name=email]:focus,
+.join-form-box-input > input[name=phone]:focus,
+.join-form-box-input > input[name=interest]:focus {
+    border:1px solid #5a96ff;
+}
