@@ -185,7 +185,7 @@ const validationChecker = {
     },
 
     checkBirthDay(day, callback) {
-        day = Number(day)
+        day = day !== '' ? Number(day) : day
 
         const monthText = this.getFieldText(document.querySelector('#birth-field select[name=month]'))
         const lastDay   = this.getLastDay(monthText)

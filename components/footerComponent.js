@@ -1,0 +1,10 @@
+const footerComponent = {
+    getComponent() {
+        return `
+        <footer>
+            Copyright 2019 Boostcamp membership. All rights reserved.<br>
+            Created by Mosball
+        </footer>
+        `
+    }
+}

@@ -43,9 +43,9 @@ const utils = {
     registerAddInterestEvent() {
         const interestInput = document.querySelector('#interest-field .join-form-box-input > input')
 
-        interestInput.addEventListener('input', (e) => {
+        interestInput.addEventListener('keyup', (e) => {
             const inputText = e.target.value
-            if (!inputText.includes(',')) return
+            if (e.key !== ',') return
 
             if (inputText.replace(/\,/g, '').length > 0) {
                 e.target.insertAdjacentHTML('beforebegin', this.makeInterestElement(inputText))
@@ -66,6 +66,7 @@ const utils = {
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('interest-box-x')) {
                 e.target.parentElement.remove()
+                document.querySelector('#interest-field .join-form-box-input > input').focus()
             }
         })
     },
