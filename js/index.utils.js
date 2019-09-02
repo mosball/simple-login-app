@@ -57,7 +57,7 @@ const utils = {
 
     makeInterestElement(interest) {
         return `<div class = "interest-box">
-            <span class = "interest-text" name = "interest">${interest.replace(/\,/g, '')}</span>
+            <span class = "interest-text" name = "interest-text">${interest.replace(/\,/g, '')}</span>
             <span class = "interest-box-x">X</span>
         </div>`
     },

@@ -2,6 +2,7 @@ window.onload = () => {
     renderHTML()
     utils.registerAllUtilsEvents()
     validationChecker.registerAllCheckEvent()
+    rules.registerAllRulesEvents()
 }
 
 const renderHTML = () => {
@@ -13,6 +14,7 @@ const renderHTML = () => {
             ${joinComponent.getComponent()}
         </div>
         ${footerComponent.getComponent()}
+        ${rulesPopupComponent.getComponent()}
     `
     document.body.insertAdjacentHTML('afterbegin', indexHTML)
 }

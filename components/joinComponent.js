@@ -120,7 +120,7 @@ const joinComponent = {
                     관심사
                 </div>
                 <div class="join-form-box-input">
-                    <input type = "text" data-target="#interest-field > .join-form-box-infomsg" maxLength="12"/>
+                    <input type = "text" name="interest" data-target="#interest-field > .join-form-box-infomsg" maxLength="12"/>
                 </div>
                 <div class="join-form-box-infomsg">
                 </div>
