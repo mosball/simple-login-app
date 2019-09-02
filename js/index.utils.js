@@ -5,6 +5,7 @@ const utils = {
         this.registerAddInterestEvent()
         this.registerRemoveInterestEvent()
         this.registerModifyInterestEvent()
+        this.registerInitAllFieldEvent()
     },
 
     registerInputFocusEvent() {
@@ -65,7 +66,7 @@ const utils = {
     registerRemoveInterestEvent() {
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('interest-box-x')) {
-                e.target.parentElement.remove()
+                e.target.parentNode.remove()
                 document.querySelector('#interest-field .join-form-box-input > input').focus()
             }
         })
@@ -86,5 +87,50 @@ const utils = {
     getLastInterestBox() {
         const interestBoxs = document.querySelectorAll('.interest-box')
         return interestBoxs[interestBoxs.length - 1]
+    },
+
+    registerInitAllFieldEvent() {
+        const initButton = document.querySelector('#init-btn')
+
+        initButton.addEventListener('click', () => {
+            if (confirm('모든 내용을 새로 작성하시겠습니까?')) {
+                this.initAllField()
+            }
+        })
+    },
+
+    initAllField() {
+        const fields = document.querySelectorAll('.join-form-box-input > *')
+
+        fields.forEach(field => {
+            if (field.getAttribute('name') === 'interest') {
+                const interestBoxs = this.getInterestBoxs(field)
+                interestBoxs.forEach(e => e.remove())
+                return
+            }
+
+            if (field.tagName === 'SELECT') {
+                field.selectedIndex = 0
+                return
+            }
+
+            field.value = ''
+            if (field.getAttribute('data-target')) {
+                document.querySelector(field.getAttribute('data-target')).innerHTML = ''
+            }
+        })
+    },
+
+    getInterestBoxs(field) {
+        const elements = field.parentNode.childNodes
+        const interestBoxs = []
+
+        elements.forEach(e => {
+            if (e.classList && e.classList.contains('interest-box')) {
+                interestBoxs.push(e)
+            }
+        })
+
+        return interestBoxs
     }
  }

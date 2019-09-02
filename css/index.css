@@ -23,6 +23,12 @@ header button {
     border-radius: 3px;
 }
 
+header button:hover {
+    color:#5a96ff;
+    background-color:#ffffff;
+    transition: 0.8s;
+}
+
 header > #header-intro {
     font-size: 20px;
     font-weight: 600;
@@ -69,9 +75,21 @@ form h3 {
     display: none;
 }
 
+.join-form-box {
+    position: relative;
+}
+
+.join-form-box:not(#birth-field) > .join-form-box-input {
+    border:1px solid #e0e0e0;
+}
+
 .join-form-box-input {
     margin-top:5px;
     margin-bottom:10px;
+}
+
+#birth-field > .join-form-box-input > input,
+#birth-field > .join-form-box-input > select {
     border:1px solid #e0e0e0;
 }
 
@@ -115,7 +133,6 @@ form h3 {
     margin:5px;
     display: inline-block;
     background-color:#e0e0e0;
-    border-radius: 10px;
     border:1px solid #999999;
     font-size:14px;
 }
@@ -154,20 +171,20 @@ form h3 {
     position: fixed;
     top:0;
     left:0;
-    background-color: rgb(0, 0, 0, 0.4);
+    background-color: rgb(0, 0, 0, 0.8);
     display: none;
     align-items: center;
     justify-content: center;
+    z-index: 10;
 }
 
 #rules-popup {
     width:700px;
     height:230px;
     padding:20px;
-    background-color: #e7e7e7;
-    border:1px solid #555555;
+    background-color: #f1f1f1;
     position: relative;
-    z-index: 2;
+    z-index: 11;
 }
 
 #rules-popup > h6 {
@@ -247,4 +264,15 @@ button:hover {
 
 .green-text {
     color:green;
+}
+
+.invalid-tooltip {
+    padding:4px;
+    display:inline-block;
+    position: absolute;
+    color:#ffffff;
+    background-color: #5a96ff;
+    white-space: nowrap;
+    border-radius: 0;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
 }

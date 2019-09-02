@@ -1,21 +1,77 @@
 const validationChecker = {
+    fieldValidationManager: {
+        id: {
+            target: '#id-field > .join-form-box-input',
+            status: [false],
+            msg   : '아이디를 확인해주세요.'
+        },
+        password: {
+            target: '#password-field > .join-form-box-input',
+            status: [false],
+            msg   : '비밀번호를 확인해주세요.'
+        },
+        password2: {
+            target: '#password2-field > .join-form-box-input',
+            status: [false],
+            msg   : '비밀번호가 일치하지 않습니다.'
+        },
+        name: {
+            target: '#name-field > .join-form-box-input',
+            status: [false],
+            msg   : '이름을 입력해주세요.'
+        },
+        birth: {
+            target: '#birth-field > .join-form-box-input',
+            status: [false, false, false],
+            msg   : '생년월일을 확인해주세요.'
+        },
+        gender: {
+            target: '#gender-field > .join-form-box-input',
+            status: [false],
+            msg   : '성별을 입력해주세요.'
+        },
+        email: {
+            target: '#email-field > .join-form-box-input',
+            status: [false],
+            msg   : '이메일을 확인해주세요.'
+        },
+        phone: {
+            target: '#phone-field > .join-form-box-input',
+            status: [false],
+            msg   : '휴대전화를 확인해주세요.'
+        },
+        interest: {
+            target: '#interest-field > .join-form-box-input',
+            status: [false],
+            msg   : '관심사를 입력해주세요..'
+        },
+        rules: {
+            target: '#rules > .join-form-box-title',
+            status: [false],
+            msg   : '약관에 동의해주세요.'
+        }
+    },
+
     registerAllCheckEvent() {
         this.registerCheckEvent('#id-field input[name=id]')
         this.registerCheckEvent('#password-field input[name=password]')
         this.registerCheckEvent('#password2-field input[name=password2]')
+        this.registerCheckEvent('#name-field input[name=name]')
         this.registerCheckEvent('#birth-field input[name=year]')
         this.registerCheckEvent('#birth-field select[name=month]')
         this.registerCheckEvent('#birth-field input[name=day]')
+        this.registerCheckEvent('#gender-field select[name=gender]')
         this.registerCheckEvent('#email-field input[name=email]')
         this.registerCheckEvent('#phone-field input[name=phone]')
         this.registerCheckEvent('#interest-field input[name=interest]')
+        this.registerJoinButtonClickEvent()
     },
 
-    insertInfoMsg(element, msg, css) {
+    insertInfoMsg(element, msg, status) {
         const infoMsgTarget = element.getAttribute('data-target')
         const infoMsgField  = document.querySelector(infoMsgTarget)
 
-        infoMsgField.innerHTML = `<span class = "${css}">${msg}</span>`
+        infoMsgField.innerHTML = `<span class = "${status ? 'green-text' : 'red-text'}">${msg}</span>`
     },
 
     /**
@@ -25,10 +81,10 @@ const validationChecker = {
     getFieldItem(field) {
         if (field.tagName !== 'INPUT') {
             return field.options[field.selectedIndex].value
-        }
 
-        if (field.getAttribute('name') === 'interest') {
+        } else if (field.getAttribute('name') === 'interest') {
             return field.parentElement.querySelectorAll('.interest-box')
+
         } else {
             return field.value
         }
@@ -39,9 +95,11 @@ const validationChecker = {
             case 'id'       : return this.checkId
             case 'password' : return this.checkPassword
             case 'password2': return this.checkPassword2
+            case 'name'     : return this.checkName
             case 'year'     : return this.checkBirthYear
             case 'month'    : return this.checkBirthMonth
             case 'day'      : return this.checkBirthDay.bind(this)
+            case 'gender'   : return this.checkGender
             case 'email'    : return this.checkEmail
             case 'phone'    : return this.checkPhone
             case 'interest' : return this.checkInterest
@@ -56,13 +114,24 @@ const validationChecker = {
             const checkItem   = this.getCheckFunction(e.target.getAttribute('name'))
 
             checkItem(itemToCheck).then(result => {
-                if (!result) return
-                this.insertInfoMsg(e.target, result.msg, result.css)
+                const fieldId = e.target.parentNode.parentNode.id.replace('-field', '')
+
+                this.changeFieldValidationStatus(fieldId, result.status, e.target.getAttribute('name'))
+                this.insertInfoMsg(e.target, result.msg, result.status)
 
             }).catch(err => {
                 console.log(err)
             })
         })
+    },
+
+    changeFieldValidationStatus(id, status, targetName) {
+        if (id === 'birth') {
+            const index = targetName === 'year' ? 0 : targetName === 'month' ? 1 : 2
+            this.fieldValidationManager[id].status[index] = status
+        } else {
+            this.fieldValidationManager[id].status[0] = status
+        }
     },
 
     checkId(id) {
@@ -71,22 +140,22 @@ const validationChecker = {
                 {
                     condition: id === '',
                     msg      : '',
-                    css      : ''
+                    status   : false
                 },
                 {
                     condition: !/^[a-z0-9\-\_]{5,20}$/.test(id),
                     msg      : '5~20자의 영문 소문자, 숫자와 특수기호(_)(-)만 사용 가능합니다.',
-                    css      : 'red-text'
+                    status   : false
                 },
                 {
                     condition: false, 
                     msg      : '이미 사용중인 아이디입니다.',
-                    css      : 'red-text'
+                    status   : false
                 },
                 {
                     condition: true,
                     msg      : '사용 가능한 아이디입니다.',
-                    css      : 'green-text'
+                    status   : true
                 },
             ]
     
@@ -102,32 +171,32 @@ const validationChecker = {
                 {
                     condition: password === '',
                     msg      : '',
-                    css      : ''
+                    status   : false
                 },
                 {
                     condition: password.length < 8 || 16 < password.length,
-                    msg      : '8자 이상 16자 이하로 입력하세요.',
-                    css      : 'red-text'
+                    msg      : '8자 이상 16자 이하로 입력해주세요.',
+                    status   : false
                 },
                 {
                     condition: !/[A-Z]/.test(password), 
                     msg      : '영문 대문자를 최소 1자 이상 포함하세요.',
-                    css      : 'red-text'
+                    status   : false
                 },
                 {
                     condition: !/[0-9]/.test(password), 
                     msg      : '숫자를 최소 1자 이상 포함하세요.',
-                    css      : 'red-text'
+                    status   : false
                 },
                 {
                     condition: !/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/.test(password), 
                     msg      : '특수문자를 최소 1자 이상 포함하세요.',
-                    css      : 'red-text'
+                    status   : false
                 },
                 {
                     condition: true,
                     msg      : '안전한 비밀번호입니다.',
-                    css      : 'green-text'
+                    status   : true
                 },
             ]
     
@@ -141,20 +210,39 @@ const validationChecker = {
                 {
                     condition: password2 === '',
                     msg      : '',
-                    css      : ''
+                    status   : false
                 },
                 {
                     condition: document.querySelector('#password-field input[name=password]').value !== password2,
                     msg      : '비밀번호가 일치하지 않습니다.',
-                    css      : 'red-text'
+                    status   : false
                 },
                 {
                     condition: true,
                     msg      : '비밀번호가 일치합니다.',
-                    css      : 'green-text'
+                    status   : true
                 },
             ]
     
+            resolve(checkList.find(e => e.condition === true))
+        })
+    },
+
+    checkName(name) {
+        return new Promise((resolve, reject) => {
+            const checkList = [
+                {
+                    condition: name === '',
+                    msg      : '',
+                    status   : false
+                },
+                {
+                    condition: true,
+                    msg      : '',
+                    status   : true
+                },
+            ]
+
             resolve(checkList.find(e => e.condition === true))
         })
     },
@@ -171,27 +259,27 @@ const validationChecker = {
                 {
                     condition: year === '',
                     msg      : '',
-                    css      : ''
+                    status   : false
                 },
                 {
                     condition: isNaN(year),
-                    msg      : '태어난 년도 4자리를 정확하게 입력하세요.',
-                    css      : 'red-text'
+                    msg      : '태어난 년도 4자리를 정확하게 입력해주세요.',
+                    status   : false
                 },
                 {
                     condition: lessThan99 > year,
                     msg      : '100세 이하만 가입 가능합니다.',
-                    css      : 'red-text'
+                    status   : false
                 },
                 {
                     condition: moreThan15 < year,
                     msg      : '만 14세 이상만 가입 가능합니다.',
-                    css      : 'red-text'
+                    status   : false
                 },
                 {
                     condition: true,
                     msg      : '',
-                    css      : ''
+                    status   : true
                 },
             ]
     
@@ -201,11 +289,15 @@ const validationChecker = {
 
     checkBirthMonth(month) {
         return new Promise((resolve, reject) => {
-            if (month !== '월') {
+            const flag = month !== '월'
+            if (flag) {
                 document.querySelector('#birth-field input[name=day]').focus()
             }
     
-            resolve(null)
+            resolve({
+                msg      : '',
+                status   : flag
+            })
         })
     },
 
@@ -213,28 +305,28 @@ const validationChecker = {
         return new Promise((resolve, reject) => {
             day = day !== '' ? Number(day) : day
     
-            const monthText = this.getFieldText(document.querySelector('#birth-field select[name=month]'))
+            const monthText = this.getFieldItem(document.querySelector('#birth-field select[name=month]'))
             const lastDay   = this.getLastDay(monthText)
             const checkList = [
                 {
                     condition: day === '',
                     msg      : '',
-                    css      : ''
+                    status   : false
                 },
                 {
                     condition: monthText === '월',
                     msg      : '태어난 월을 먼저 선택하세요.',
-                    css      : 'red-text'
+                    status   : false
                 },
                 {
                     condition: isNaN(day) || day < 0 || lastDay < day,
-                    msg      : '태어난 날짜를 다시 확인하세요.',
-                    css      : 'red-text'
+                    msg      : '태어난 날짜를 다시 확인해주세요.',
+                    status   : false
                 },
                 {
                     condition: true,
                     msg      : '',
-                    css      : ''
+                    status   : true
                 },
             ]
     
@@ -250,6 +342,15 @@ const validationChecker = {
         return date.getDate()
     },
 
+    checkGender(gender) {
+        return new Promise((resolve, reject) => {
+            resolve({
+                msg      : '',
+                status   : gender !== '성별'
+            })
+        })
+    },
+
     checkEmail(email) {
         return new Promise((resolve, reject) => {
             email = email.toLowerCase()
@@ -258,17 +359,17 @@ const validationChecker = {
                 {
                     condition: email === '',
                     msg      : '',
-                    css      : ''
+                    status   : false
                 },
                 {
                     condition: !/^[a-z]+[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(email),
                     msg      : '이메일 주소를 다시 확인해주세요.',
-                    css      : 'red-text'
+                    status   : false
                 },
                 {
                     condition: true,
                     msg      : '',
-                    css      : ''
+                    status   : true
                 },
             ]
     
@@ -282,17 +383,17 @@ const validationChecker = {
                 {
                     condition: phone === '',
                     msg      : '',
-                    css      : ''
+                    status   : false
                 },
                 {
                     condition: !/^(010)[0-9]{7,8}$/.test(phone),
                     msg      : '형식에 맞지 않는 번호입니다.',
-                    css      : 'red-text'
+                    status   : false
                 },
                 {
                     condition: true,
                     msg      : '',
-                    css      : ''
+                    status   : true
                 },
             ]
     
@@ -306,21 +407,75 @@ const validationChecker = {
                 {
                     condition: interests.length === 0,
                     msg      : '',
-                    css      : ''
+                    status   : false
                 },
                 {
                     condition: interests.length < 3,
-                    msg      : '3개 이상의 관심사를 입력하세요.',
-                    css      : 'red-text'
+                    msg      : '3개 이상의 관심사를 입력해주세요.',
+                    status   : false
                 },
                 {
                     condition: true,
                     msg      : '',
-                    css      : ''
+                    status   : true
                 },
             ]
     
             resolve(checkList.find(e => e.condition === true))
         })
+    },
+
+    registerJoinButtonClickEvent() {
+        const joinButton = document.querySelector('#join-btn')
+
+        joinButton.addEventListener('click', (e) => {
+            document.querySelectorAll('.invalid-tooltip').forEach(tooltip => {
+                tooltip.remove()
+            })
+
+            console.log(location.href)
+
+            const invalidFields = this.getInvalidFields()
+
+            if (invalidFields.length > 0) {
+                invalidFields.forEach(field => {
+                    this.createTooltip(field.target, field.msg)
+                })
+            } else {
+                location.href = `${location.href}/?name=${document.querySelector('#name-field input[name=name]').value}`
+            }
+        })
+    },
+
+    getInvalidFields() {
+        const fieldValidations = Object.values(this.fieldValidationManager)
+        return fieldValidations.filter(e1 => e1.status.some(e2 => e2 === false))
+    },
+
+    createTooltip(targetElement, msg) {
+        const target   = document.querySelector(targetElement)
+        const position = this.getOffset(target)
+        const tooltip  = document.createElement('div')
+        
+        tooltip.classList.add("invalid-tooltip");
+        tooltip.innerHTML  = msg
+        tooltip.style.top  = -5
+        tooltip.style.right = position.left - 65
+        target.parentNode.appendChild(tooltip)
+
+        setTimeout(() => {
+            tooltip.remove()
+        }, 5000)
+    },
+
+    getOffset(element) {
+        var rect = element.getBoundingClientRect(),
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop
+
+        return { 
+            top: rect.top + scrollTop, 
+            left: rect.left + scrollLeft 
+        }
     }
 }

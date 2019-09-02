@@ -44,7 +44,7 @@ const joinComponent = {
                     이름
                 </div>
                 <div class="join-form-box-input">
-                    <input type="text" name="name"/>
+                    <input type="text" name="name" data-target="#name-field > .join-form-box-infomsg"/>
                 </div>
                 <div class="join-form-box-infomsg">
                 </div>
@@ -82,7 +82,7 @@ const joinComponent = {
                     성별
                 </div>
                 <div class="join-form-box-input">
-                    <select name="gender">
+                    <select name="gender" data-target="#gender-field > .join-form-box-infomsg">
                         <option selected hidden>성별</option>
                         <option value = 'male'>남성</option>
                         <option value = 'female'>여성</option>
@@ -132,8 +132,8 @@ const joinComponent = {
             </div>
     
             <div id="btn-group" class="join-form-box">
-                <button id="init-btn">초기화</button>
-                <button id="join-btn">가입하기</button>
+                <button type="button" id="init-btn">초기화</button>
+                <button type="button" id="join-btn">가입하기</button>
             </div>
         </form>
         `
