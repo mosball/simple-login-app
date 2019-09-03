@@ -70,11 +70,6 @@ form h3 {
     color:#5a96ff;
 }
 
-#join-form,
-#login-form {
-    display: none;
-}
-
 .join-form-box {
     position: relative;
 }

@@ -433,8 +433,6 @@ const validationChecker = {
                 tooltip.remove()
             })
 
-            console.log(location.href)
-
             const invalidFields = this.getInvalidFields()
 
             if (invalidFields.length > 0) {
@@ -442,7 +440,8 @@ const validationChecker = {
                     this.createTooltip(field.target, field.msg)
                 })
             } else {
-                location.href = `${location.href}/?name=${document.querySelector('#name-field input[name=name]').value}`
+                const name = document.querySelector('#name-field input[name=name]').value
+                location.href = `?name=${name}`
             }
         })
     },

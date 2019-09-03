@@ -1,7 +1,6 @@
 const utils = {
     registerAllUtilsEvents() {
         this.registerInputFocusEvent()
-        this.registerShowBtnClickEvent()
         this.registerAddInterestEvent()
         this.registerRemoveInterestEvent()
         this.registerModifyInterestEvent()
@@ -24,23 +23,6 @@ const utils = {
         })
     },
     
-    registerShowBtnClickEvent() {
-        const showLogin = document.querySelector('#show-login')
-        const showJoin  = document.querySelector('#show-join')
-    
-        showLogin.addEventListener('click', () => {
-            document.querySelector('#default-body').style.display = "none"
-            document.querySelector('#join-form').style.display = "none"
-            document.querySelector('#login-form').style.display = "block"
-        })
-    
-        showJoin.addEventListener('click', () => {
-            document.querySelector('#default-body').style.display = "none"
-            document.querySelector('#login-form').style.display = "none"
-            document.querySelector('#join-form').style.display = "block"
-        })
-    },
-
     registerAddInterestEvent() {
         const interestInput = document.querySelector('#interest-field .join-form-box-input > input')
 
