@@ -3,7 +3,7 @@ const path         = require('path')
 const bodyParser   = require('body-parser')
 const cookieParser = require('cookie-parser')
 const logger       = require('morgan')
-const Error        = require('./error')
+const Error        = require('./custom_modules/error')
 
 const app = express()
 const indexRouter = require('./routes/index')
