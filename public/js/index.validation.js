@@ -440,6 +440,7 @@ const validationChecker = {
                     this.createTooltip(field.target, field.msg)
                 })
             } else {
+                //가입하기
                 const name = document.querySelector('#name-field input[name=name]').value
                 location.href = `?name=${name}`
             }

@@ -16,7 +16,7 @@ const renderHTML = () => {
     document.body.insertAdjacentHTML('afterbegin', indexHTML)
 
     registerDependenceEvent()
-    registerShowBtnClickEvent()
+    displayMember()
 }
 
 const registerDependenceEvent = () => {
@@ -28,20 +28,10 @@ const registerDependenceEvent = () => {
         validationChecker.registerAllCheckEvent()
 
     } else {
-        const name = decodeURI(location.search.replace('?name=', ''))
-        if (name) {
-            const header    = document.querySelector('#header-btn-group')
-            const showLogin = document.querySelector('#show-login')
-            const showJoin  = document.querySelector('#show-join')
 
-            showJoin.style.display = 'none'
-            showLogin.style.display = 'none'
-            header.insertAdjacentText('afterbegin', `${name}님 환영합니다.`)
-        } else {
-            const logout = document.querySelector('#logout')
-            logout.style.display = 'none'
-        }
     }
+
+    registerShowBtnClickEvent()
 }
 
 const registerShowBtnClickEvent = () => {
@@ -61,4 +51,20 @@ const registerHashChangeEvent = () => {
     window.addEventListener('hashchange', () => {
         renderHTML()
     })
+}
+
+const displayMember = () => {
+    if (userName) {
+        const header = document.querySelector('#header-btn-group')
+        const showLogin = document.querySelector('#show-login')
+        const showJoin = document.querySelector('#show-join')
+
+        showJoin.style.display = 'none'
+        showLogin.style.display = 'none'
+        header.insertAdjacentText('afterbegin', `${userName}님 환영합니다.`)
+
+    } else {
+        const logout = document.querySelector('#logout')
+        logout.style.display = 'none'
+    }
 }
