@@ -32,9 +32,14 @@ const registerDependenceEvent = () => {
         if (name) {
             const header    = document.querySelector('#header-btn-group')
             const showLogin = document.querySelector('#show-login')
+            const showJoin  = document.querySelector('#show-join')
 
+            showJoin.style.display = 'none'
             showLogin.style.display = 'none'
             header.insertAdjacentText('afterbegin', `${name}님 환영합니다.`)
+        } else {
+            const logout = document.querySelector('#logout')
+            logout.style.display = 'none'
         }
     }
 }
