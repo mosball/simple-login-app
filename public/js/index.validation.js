@@ -157,8 +157,12 @@ const validationChecker = {
      * @param {string, object} fieldValue ex) user email or ['관심1', '관심2', '관심3']
      */
     saveFieldValue(target, targetIndex, fieldValue) {
-        if (target) {
-            target = fieldValue
+        if (!target) return
+
+        if (targetIndex) {
+            target.value[targetIndex] = fieldValue
+        } else {
+            target.value = fieldValue
         }
     },
 
