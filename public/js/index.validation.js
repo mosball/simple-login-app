@@ -3,11 +3,13 @@ const validationChecker = {
         id: {
             target: '#id-field > .join-form-box-input',
             status: [false],
+            value : '',
             msg   : '아이디를 확인해주세요.'
         },
         password: {
             target: '#password-field > .join-form-box-input',
             status: [false],
+            value : '',
             msg   : '비밀번호를 확인해주세요.'
         },
         password2: {
@@ -18,31 +20,37 @@ const validationChecker = {
         name: {
             target: '#name-field > .join-form-box-input',
             status: [false],
+            value : '',
             msg   : '이름을 입력해주세요.'
         },
         birth: {
             target: '#birth-field > .join-form-box-input',
             status: [false, false, false],
+            value : ['', '', ''],
             msg   : '생년월일을 확인해주세요.'
         },
         gender: {
             target: '#gender-field > .join-form-box-input',
             status: [false],
+            value : '',
             msg   : '성별을 입력해주세요.'
         },
         email: {
             target: '#email-field > .join-form-box-input',
             status: [false],
+            value : '',
             msg   : '이메일을 확인해주세요.'
         },
         phone: {
             target: '#phone-field > .join-form-box-input',
             status: [false],
+            value : '',
             msg   : '휴대전화를 확인해주세요.'
         },
         interest: {
             target: '#interest-field > .join-form-box-input',
             status: [false],
+            value : [],
             msg   : '관심사를 입력해주세요..'
         },
         rules: {
@@ -78,7 +86,7 @@ const validationChecker = {
      * 인자로 넘어온 field에 따라서 유효성을 체크할 요소를 반환
      * @field : HTML Element
      */
-    getFieldItem(field) {
+    getFieldValue(field) {
         if (field.tagName !== 'INPUT') {
             return field.options[field.selectedIndex].value
 
@@ -110,10 +118,10 @@ const validationChecker = {
         const someInputField = document.querySelector(cssSelector)
 
         someInputField.addEventListener('focusout', (e) => {
-            const itemToCheck = this.getFieldItem(e.target)
-            const checkItem   = this.getCheckFunction(e.target.getAttribute('name'))
+            const valueToCheck = this.getFieldValue(e.target)
+            const checkValue   = this.getCheckFunction(e.target.getAttribute('name'))
 
-            checkItem(itemToCheck).then(result => {
+            checkValue(valueToCheck).then(result => {
                 const fieldId = e.target.parentNode.parentNode.id.replace('-field', '')
 
                 this.changeFieldValidationStatus(fieldId, result.status, e.target.getAttribute('name'))
@@ -148,15 +156,16 @@ const validationChecker = {
                     status   : false
                 },
                 {
-                    condition: true,
-                    msg      : '사용 가능한 아이디입니다.',
-                    status   : true
+                    condition : true,
+                    msg       : '사용 가능한 아이디입니다.',
+                    status    : true,
+                    saveTarget: this.fieldValidationManager.id
                 },
             ]
     
             //아이디 중복 검사
-            this.checkDuplicateId(id).then(duplicateChecker => {
-                checkList.splice(2, 0, duplicateChecker)
+            this.checkDuplicateId(id).then(duplicationChecker => {
+                checkList.splice(2, 0, duplicationChecker)
                 resolve(checkList.find(e => e.condition === true))
             })
         })

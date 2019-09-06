@@ -14,11 +14,7 @@ module.exports = class {
      * @param {object} value user info
      */
     insert(key, value) {
-        if (this.database[key]) {
-            console.log('이미 존재하는 아이디입니다.')
-        } else {
-            this.database[key] = value
-        }
+        this.database[key] = value
     }
 
     /**
