@@ -48,7 +48,7 @@ const rules = {
                 const rulesCheckbox = document.querySelector('#rules > input')
                 rulesCheckbox.checked = true
                 document.querySelector('#rules-popup-x').click()
-                validationChecker.fieldValidationManager.rules.status = [true]
+                validationChecker.fieldManager.rules.status = [true]
             }
         })
     }

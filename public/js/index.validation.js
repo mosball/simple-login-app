@@ -79,6 +79,8 @@ const validationChecker = {
         const infoMsgTarget = element.getAttribute('data-target')
         const infoMsgField  = document.querySelector(infoMsgTarget)
 
+        if (!infoMsgField) return
+
         infoMsgField.innerHTML = `<span class = "${status ? 'green-text' : 'red-text'}">${msg}</span>`
     },
 
@@ -91,7 +93,11 @@ const validationChecker = {
             return field.options[field.selectedIndex].value
 
         } else if (field.getAttribute('name') === 'interest') {
-            return field.parentElement.querySelectorAll('.interest-box')
+            const interests = []
+            field.parentElement.querySelectorAll('.interest-box > .interest-text').forEach(e => {
+                interests.push(e.innerText)
+            })
+            return interests
 
         } else {
             return field.value
@@ -101,16 +107,16 @@ const validationChecker = {
     getCheckFunction(name) {
         switch (name) {
             case 'id'       : return this.checkId.bind(this)
-            case 'password' : return this.checkPassword
+            case 'password' : return this.checkPassword.bind(this)
             case 'password2': return this.checkPassword2
-            case 'name'     : return this.checkName
-            case 'year'     : return this.checkBirthYear
-            case 'month'    : return this.checkBirthMonth
+            case 'name'     : return this.checkName.bind(this)
+            case 'year'     : return this.checkBirthYear.bind(this)
+            case 'month'    : return this.checkBirthMonth.bind(this)
             case 'day'      : return this.checkBirthDay.bind(this)
-            case 'gender'   : return this.checkGender
-            case 'email'    : return this.checkEmail
-            case 'phone'    : return this.checkPhone
-            case 'interest' : return this.checkInterest
+            case 'gender'   : return this.checkGender.bind(this)
+            case 'email'    : return this.checkEmail.bind(this)
+            case 'phone'    : return this.checkPhone.bind(this)
+            case 'interest' : return this.checkInterest.bind(this)
         }
     },
 
@@ -121,12 +127,12 @@ const validationChecker = {
             const valueToCheck = this.getFieldValue(e.target)
             const checkValue   = this.getCheckFunction(e.target.getAttribute('name'))
 
-            checkValue(valueToCheck).then(result => {
+            checkValue(valueToCheck).then(res => {
                 const fieldId = e.target.parentNode.parentNode.id.replace('-field', '')
 
-                this.changeFieldValidationStatus(fieldId, result.status, e.target.getAttribute('name'))
-                this.insertInfoMsg(e.target, result.msg, result.status)
-                this.saveFieldValue(result.saveTarget, valueToCheck)
+                this.changeFieldValidationStatus(fieldId, res.status, e.target.getAttribute('name'))
+                this.insertInfoMsg(e.target, res.msg, res.status)
+                this.saveFieldValue(res.saveTarget, valueToCheck)
 
             }).catch(err => {
                 console.log(err)
@@ -146,10 +152,11 @@ const validationChecker = {
     /**
      * 서버로 보내기위한 회원가입 데이터를 임시로 보관하기 위해
      * fieldManager에 fieldValue를 저장하는 함수
-     * @param {*} target ex) fieldManager.id.value
-     * @param {*} fieldValue ex) user email
+     * @param {object} target ex) fieldManager.id
+     * @param {number} targetIndex ex) 0,1,2
+     * @param {string, object} fieldValue ex) user email or ['관심1', '관심2', '관심3']
      */
-    saveFieldValue(target, fieldValue) {
+    saveFieldValue(target, targetIndex, fieldValue) {
         if (target) {
             target = fieldValue
         }
@@ -172,7 +179,7 @@ const validationChecker = {
                     condition : true,
                     msg       : '사용 가능한 아이디입니다.',
                     status    : true,
-                    saveTarget: this.fieldManager.id.value
+                    saveTarget: this.fieldManager.id
                 },
             ]
     
@@ -234,7 +241,7 @@ const validationChecker = {
                     condition : true,
                     msg       : '안전한 비밀번호입니다.',
                     status    : true,
-                    saveTarget: this.fieldManager.password.value
+                    saveTarget: this.fieldManager.password
                 },
             ]
     
@@ -278,7 +285,7 @@ const validationChecker = {
                     condition : true,
                     msg       : '',
                     status    : true,
-                    saveTarget: this.fieldManager.name.value
+                    saveTarget: this.fieldManager.name
                 },
             ]
 
@@ -319,7 +326,8 @@ const validationChecker = {
                     condition : true,
                     msg       : '',
                     status    : true,
-                    saveTarget: this.fieldManager.birth.value[0]
+                    saveTarget: this.fieldManager.birth,
+                    saveIndex : 0 //birth는 년,월,일을 나눠 저장해야 하기 때문에 index가 필요
                 },
             ]
     
@@ -337,7 +345,8 @@ const validationChecker = {
             resolve({
                 msg       : '',
                 status    : flag,
-                saveTarget: flag ? this.fieldManager.birth.value[1] : null
+                saveTarget: flag ? this.fieldManager.birth : null,
+                saveIndex : 1
             })
         })
     },
@@ -346,7 +355,7 @@ const validationChecker = {
         return new Promise((resolve, reject) => {
             day = day !== '' ? Number(day) : day
     
-            const monthText = this.getFieldItem(document.querySelector('#birth-field select[name=month]'))
+            const monthText = this.getFieldValue(document.querySelector('#birth-field select[name=month]'))
             const lastDay   = this.getLastDay(monthText)
             const checkList = [
                 {
@@ -368,7 +377,8 @@ const validationChecker = {
                     condition : true,
                     msg       : '',
                     status    : true,
-                    saveTarget: this.fieldManager.birth.value[2]
+                    saveTarget: this.fieldManager.birth,
+                    saveIndex : 2
                 },
             ]
     
@@ -390,7 +400,7 @@ const validationChecker = {
             resolve({
                 msg       : '',
                 status    : flag,
-                saveTarget: flag ? this.fieldManager.gender.value : null
+                saveTarget: flag ? this.fieldManager.gender : null
             })
         })
     },
@@ -414,7 +424,7 @@ const validationChecker = {
                     condition : true,
                     msg       : '',
                     status    : true,
-                    saveTarget: this.fieldManager.email.value
+                    saveTarget: this.fieldManager.email
                 },
             ]
     
@@ -439,7 +449,7 @@ const validationChecker = {
                     condition : true,
                     msg       : '',
                     status    : true,
-                    saveTarget: this.fieldManager.phone.value
+                    saveTarget: this.fieldManager.phone
                 },
             ]
     
@@ -464,7 +474,7 @@ const validationChecker = {
                     condition : true,
                     msg       : '',
                     status    : true,
-                    saveTarget: this.fieldManager.interest.value
+                    saveTarget: this.fieldManager.interest
                 },
             ]
     
@@ -486,11 +496,12 @@ const validationChecker = {
                 invalidFields.forEach(field => {
                     this.createTooltip(field.target, field.msg)
                 })
-            } else {
-                //가입하기
-                const name = document.querySelector('#name-field input[name=name]').value
-                location.href = `?name=${name}`
+                return
             }
+
+            this.requestJoin().then(res => {
+                alert('회원가입 성공')
+            })
         })
     },
 
@@ -516,12 +527,12 @@ const validationChecker = {
     },
 
     getOffset(element) {
-        var rect = element.getBoundingClientRect(),
+        const rect = element.getBoundingClientRect(),
         scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-        scrollTop = window.pageYOffset || document.documentElement.scrollTop
+        scrollTop  = window.pageYOffset || document.documentElement.scrollTop
 
         return { 
-            top: rect.top + scrollTop, 
+            top : rect.top + scrollTop, 
             left: rect.left + scrollLeft 
         }
     }

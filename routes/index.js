@@ -25,7 +25,11 @@ module.exports = (express, database) => {
      * database.insert함수를 통해 id를 key값으로 하는 회원 정보 삽입
      */
     router.post('/join', (req, res, next) => {
-        database.insert(key, value)
+        database.insert(req.body.id, req.body.userInfo)
+        database.print()
+
+        console.log(req.body.userInfo)
+
         res.json({
             response: true
         })
@@ -36,7 +40,7 @@ module.exports = (express, database) => {
      * 
      */
     router.post('/login', (req, res, next) => {
-        
+
         res.json({
             response: true
         })

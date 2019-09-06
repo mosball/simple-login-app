@@ -1,7 +1,7 @@
 module.exports = class {
     constructor() {
         this.database = {
-            'rnjsrldnd123':{
+            'rnjsrldnd123': {
                 name: '권기웅'
             }
         }
@@ -33,5 +33,15 @@ module.exports = class {
      */
     get(key) {
         return this.database[key]
+    }
+
+    /**
+     * database에 저장되있는 모든 데이터를 출력
+     */
+    print() {
+        for (let id in this.database) {
+            console.log(`id : ${id}`)
+            console.log(`info : ${JSON.stringify(this.database[id])}`)
+        }
     }
 }
