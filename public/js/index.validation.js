@@ -551,7 +551,7 @@ const validationChecker = {
         utils.fadeIn(tooltip)
 
         setTimeout(() => {
-            tooltip.remove()
+            utils.fadeOut(tooltip, true)
         }, 5000)
     },
 
