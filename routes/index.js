@@ -28,8 +28,6 @@ module.exports = (express, database) => {
         database.insert(req.body.id, req.body.userInfo)
         database.print()
 
-        console.log(req.body.userInfo)
-
         res.json({
             response: true
         })

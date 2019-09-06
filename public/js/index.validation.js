@@ -132,7 +132,7 @@ const validationChecker = {
 
                 this.changeFieldValidationStatus(fieldId, res.status, e.target.getAttribute('name'))
                 this.insertInfoMsg(e.target, res.msg, res.status)
-                this.saveFieldValue(res.saveTarget, valueToCheck)
+                this.saveFieldValue(res.saveTarget, res.saveIndex, valueToCheck)
 
             }).catch(err => {
                 console.log(err)
@@ -159,7 +159,7 @@ const validationChecker = {
     saveFieldValue(target, targetIndex, fieldValue) {
         if (!target) return
 
-        if (targetIndex) {
+        if (targetIndex !== undefined) {
             target.value[targetIndex] = fieldValue
         } else {
             target.value = fieldValue
@@ -512,6 +512,29 @@ const validationChecker = {
     getInvalidFields() {
         const fieldValidations = Object.values(this.fieldManager)
         return fieldValidations.filter(e1 => e1.status.some(e2 => e2 === false))
+    },
+
+    requestJoin() {
+        return new Promise((resolve, reject) => {
+            axios({
+                url: '/join',
+                method: 'post',
+                data: {
+                    id: this.fieldManager.id.value,
+                    userInfo: {
+                        password: this.fieldManager.password.value,
+                        name    : this.fieldManager.name.value,
+                        birth   : this.fieldManager.birth.value.join('-'),
+                        gender  : this.fieldManager.gender.value,
+                        email   : this.fieldManager.email.value,
+                        phone   : this.fieldManager.phone.value,
+                        interest: this.fieldManager.interest.value
+                    }
+                }
+            }).then(res => {
+                resolve(res.response)
+            })
+        })
     },
 
     createTooltip(targetElement, msg) {
