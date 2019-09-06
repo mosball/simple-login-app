@@ -543,10 +543,12 @@ const validationChecker = {
         const tooltip  = document.createElement('div')
         
         tooltip.classList.add("invalid-tooltip");
-        tooltip.innerHTML  = msg
-        tooltip.style.top  = -5
+        tooltip.innerHTML   = msg
+        tooltip.style.top   = -5
         tooltip.style.right = position.left - 65
+        tooltip.style.opacity = 0
         target.parentNode.appendChild(tooltip)
+        utils.fadeIn(tooltip)
 
         setTimeout(() => {
             tooltip.remove()

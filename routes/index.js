@@ -26,7 +26,7 @@ module.exports = (express, database) => {
      */
     router.post('/join', (req, res, next) => {
         database.insert(req.body.id, req.body.userInfo)
-        database.print()
+        console.dir(database.get(req.body.id))
 
         res.json({
             response: true
