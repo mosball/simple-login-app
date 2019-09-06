@@ -1,10 +1,17 @@
-const express = require('express')
-const router = express.Router()
+module.exports = (express, database) => {
+    const router = express.Router()
 
-/* GET home page. */
-router.get('/', (req, res, next) => {
-  res.locals.userName = '권기웅'
-  res.render('index')
-})
+    /* GET home page. */
+    router.get('/', (req, res, next) => {
+        res.locals.userName = ''
+        res.render('index')
+    })
 
-module.exports = router
+    router.post('/duplicateIdCheck', (req, res, next) => {
+        res.json({
+            isDuplicated: database.test(req.body.id),
+        })
+    })
+
+    return router
+}

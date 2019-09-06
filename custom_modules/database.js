@@ -1,6 +1,10 @@
 module.exports = class {
     constructor() {
-        this.database = {}
+        this.database = {
+            'rnjsrldnd123':{
+                name: '권기웅'
+            }
+        }
     }
 
     /**

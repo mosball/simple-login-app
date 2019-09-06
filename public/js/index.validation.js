@@ -92,7 +92,7 @@ const validationChecker = {
 
     getCheckFunction(name) {
         switch (name) {
-            case 'id'       : return this.checkId
+            case 'id'       : return this.checkId.bind(this)
             case 'password' : return this.checkPassword
             case 'password2': return this.checkPassword2
             case 'name'     : return this.checkName
@@ -148,11 +148,6 @@ const validationChecker = {
                     status   : false
                 },
                 {
-                    condition: false, 
-                    msg      : '이미 사용중인 아이디입니다.',
-                    status   : false
-                },
-                {
                     condition: true,
                     msg      : '사용 가능한 아이디입니다.',
                     status   : true
@@ -160,8 +155,28 @@ const validationChecker = {
             ]
     
             //아이디 중복 검사
-    
-            resolve(checkList.find(e => e.condition === true))
+            this.checkDuplicateId(id).then(duplicateChecker => {
+                checkList.splice(2, 0, duplicateChecker)
+                resolve(checkList.find(e => e.condition === true))
+            })
+        })
+    },
+
+    checkDuplicateId(id) {
+        return new Promise((resolve, reject) => {
+            axios({
+                url: '/duplicateIdCheck',
+                method: 'post',
+                data: {
+                    id: id
+                }
+            }).then(res => {
+                resolve({
+                    condition: res.data.isDuplicated, 
+                    msg      : '이미 사용중인 아이디입니다.',
+                    status   : false
+                })
+            })
         })
     },
 
