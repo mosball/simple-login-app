@@ -1,5 +1,5 @@
 const validationChecker = {
-    fieldValidationManager: {
+    fieldManager: {
         id: {
             target: '#id-field > .join-form-box-input',
             status: [false],
@@ -126,6 +126,7 @@ const validationChecker = {
 
                 this.changeFieldValidationStatus(fieldId, result.status, e.target.getAttribute('name'))
                 this.insertInfoMsg(e.target, result.msg, result.status)
+                this.saveFieldValue(result.saveTarget, valueToCheck)
 
             }).catch(err => {
                 console.log(err)
@@ -136,9 +137,21 @@ const validationChecker = {
     changeFieldValidationStatus(id, status, targetName) {
         if (id === 'birth') {
             const index = targetName === 'year' ? 0 : targetName === 'month' ? 1 : 2
-            this.fieldValidationManager[id].status[index] = status
+            this.fieldManager[id].status[index] = status
         } else {
-            this.fieldValidationManager[id].status[0] = status
+            this.fieldManager[id].status[0] = status
+        }
+    },
+
+    /**
+     * 서버로 보내기위한 회원가입 데이터를 임시로 보관하기 위해
+     * fieldManager에 fieldValue를 저장하는 함수
+     * @param {*} target ex) fieldManager.id.value
+     * @param {*} fieldValue ex) user email
+     */
+    saveFieldValue(target, fieldValue) {
+        if (target) {
+            target = fieldValue
         }
     },
 
@@ -159,7 +172,7 @@ const validationChecker = {
                     condition : true,
                     msg       : '사용 가능한 아이디입니다.',
                     status    : true,
-                    saveTarget: this.fieldValidationManager.id
+                    saveTarget: this.fieldManager.id.value
                 },
             ]
     
@@ -218,9 +231,10 @@ const validationChecker = {
                     status   : false
                 },
                 {
-                    condition: true,
-                    msg      : '안전한 비밀번호입니다.',
-                    status   : true
+                    condition : true,
+                    msg       : '안전한 비밀번호입니다.',
+                    status    : true,
+                    saveTarget: this.fieldManager.password.value
                 },
             ]
     
@@ -261,9 +275,10 @@ const validationChecker = {
                     status   : false
                 },
                 {
-                    condition: true,
-                    msg      : '',
-                    status   : true
+                    condition : true,
+                    msg       : '',
+                    status    : true,
+                    saveTarget: this.fieldManager.name.value
                 },
             ]
 
@@ -301,9 +316,10 @@ const validationChecker = {
                     status   : false
                 },
                 {
-                    condition: true,
-                    msg      : '',
-                    status   : true
+                    condition : true,
+                    msg       : '',
+                    status    : true,
+                    saveTarget: this.fieldManager.birth.value[0]
                 },
             ]
     
@@ -319,8 +335,9 @@ const validationChecker = {
             }
     
             resolve({
-                msg      : '',
-                status   : flag
+                msg       : '',
+                status    : flag,
+                saveTarget: flag ? this.fieldManager.birth.value[1] : null
             })
         })
     },
@@ -348,9 +365,10 @@ const validationChecker = {
                     status   : false
                 },
                 {
-                    condition: true,
-                    msg      : '',
-                    status   : true
+                    condition : true,
+                    msg       : '',
+                    status    : true,
+                    saveTarget: this.fieldManager.birth.value[2]
                 },
             ]
     
@@ -368,9 +386,11 @@ const validationChecker = {
 
     checkGender(gender) {
         return new Promise((resolve, reject) => {
+            const flag = gender !== '성별'
             resolve({
-                msg      : '',
-                status   : gender !== '성별'
+                msg       : '',
+                status    : flag,
+                saveTarget: flag ? this.fieldManager.gender.value : null
             })
         })
     },
@@ -391,9 +411,10 @@ const validationChecker = {
                     status   : false
                 },
                 {
-                    condition: true,
-                    msg      : '',
-                    status   : true
+                    condition : true,
+                    msg       : '',
+                    status    : true,
+                    saveTarget: this.fieldManager.email.value
                 },
             ]
     
@@ -415,9 +436,10 @@ const validationChecker = {
                     status   : false
                 },
                 {
-                    condition: true,
-                    msg      : '',
-                    status   : true
+                    condition : true,
+                    msg       : '',
+                    status    : true,
+                    saveTarget: this.fieldManager.phone.value
                 },
             ]
     
@@ -439,9 +461,10 @@ const validationChecker = {
                     status   : false
                 },
                 {
-                    condition: true,
-                    msg      : '',
-                    status   : true
+                    condition : true,
+                    msg       : '',
+                    status    : true,
+                    saveTarget: this.fieldManager.interest.value
                 },
             ]
     
@@ -472,7 +495,7 @@ const validationChecker = {
     },
 
     getInvalidFields() {
-        const fieldValidations = Object.values(this.fieldValidationManager)
+        const fieldValidations = Object.values(this.fieldManager)
         return fieldValidations.filter(e1 => e1.status.some(e2 => e2 === false))
     },
 
