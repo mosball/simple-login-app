@@ -1,14 +1,13 @@
 module.exports = class {
+    /**
+     * 데이터베이스 객체 초기화
+     */
     constructor() {
-        this.database = {
-            'rnjsrldnd123': {
-                name: '권기웅'
-            }
-        }
+        this.database = {}
     }
 
     /**
-     * database객체에 데이터를 삽입하는 함수
+     * database객체에 데이터를 삽입
      * 
      * @param {string} key user id
      * @param {object} value user info
@@ -18,7 +17,7 @@ module.exports = class {
     }
 
     /**
-     * database에 해당 key를 가진 객체가 있는지 확인하는 함수
+     * database에 해당 key를 가진 객체가 있는지 확인
      * @param {string} key user id
      * @param {boolean}
      */
