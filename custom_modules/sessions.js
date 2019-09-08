@@ -20,7 +20,7 @@ module.exports = class {
      * 세션 객체 추가
      * @param {uuid string} sessionId 
      * @param {string} name 
-     * @param {date string} expire 
+     * @param {milliseconds} expire 
      */
     add(sessionId, name, expire) {
         this.sessions[sessionId] = {
@@ -47,8 +47,9 @@ module.exports = class {
 
             for (let sessionId in Object.keys(this.sessions)) {
                 const session    = this.sessions[sessionId]
-                const expireDate = new Date(session.expire)
-                
+                const expireDate = new Date()
+
+                expireDate.setTime(session.expire)
                 if (now.getTime() >= expireDate.getTime()) {
                     sessionsToExpire.push(sessionId)
                 }

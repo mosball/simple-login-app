@@ -4,10 +4,12 @@ const cookieParser = require('cookie-parser')
 const logger       = require('morgan')
 const Error        = require('./custom_modules/error')
 const Database     = require('./custom_modules/database')
+const Sessions     = require('./custom_modules/sessions')
 
 const app = express()
 const database = new Database()
-const indexRouter = require('./routes/index')(express, database)
+const sessions = new Sessions()
+const indexRouter = require('./routes/index')(express, database, sessions)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

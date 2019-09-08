@@ -1,4 +1,4 @@
-module.exports = (express, database) => {
+module.exports = (express, database, sessions) => {
     const router = express.Router()
 
     /**
@@ -15,7 +15,7 @@ module.exports = (express, database) => {
      */
     router.post('/duplicateIdCheck', (req, res, next) => {
         res.json({
-            response: true,
+            response    : true,
             isDuplicated: database.test(req.body.id),
         })
     })
@@ -26,8 +26,12 @@ module.exports = (express, database) => {
      */
     router.post('/join', (req, res, next) => {
         database.insert(req.body.id, req.body.userInfo)
-        console.dir(database.get(req.body.id))
-        res.redirect('/login')
+
+        const account = database.get(req.body.id)
+        console.dir(account)
+
+        login(res, sessions, account.name)
+        res.json({ response: true})
     })
 
     /**
@@ -42,4 +46,16 @@ module.exports = (express, database) => {
     })
 
     return router
+}
+
+const login = (res, sessions, name) => {
+    const uuid = require('uuid/v4')()
+    const daysMillis = 1000 * 60 * 60 * 24
+
+    res.cookie('session-id', uuid, {
+        maxAge  : daysMillis,
+        httpOnly: true
+    })
+
+    sessions.add(uuid, name, new Date().getTime() + daysMillis)
 }
