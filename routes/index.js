@@ -5,10 +5,6 @@ module.exports = (express, database, sessions) => {
      * localhost:3000 으로 접속시 index.ejs를 rendering
      */
     router.get('/', (req, res, next) => {
-        const sessionId = req.cookies['session-id']
-        const session   = sessions.get(sessionId)
-        
-        res.locals.userName = session ? session.name : ''
         res.render('index')
     })
 

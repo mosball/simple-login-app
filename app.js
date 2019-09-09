@@ -5,6 +5,7 @@ const logger       = require('morgan')
 const Error        = require('./custom_modules/error')
 const Database     = require('./custom_modules/database')
 const Sessions     = require('./custom_modules/sessions')
+const loginChecker = require('./custom_modules/loginChecker')
 
 const app = express()
 const database = new Database()
@@ -19,6 +20,7 @@ app.use(logger('dev'))
 app.use(express.json()) //body-parser 역할
 app.use(express.urlencoded({ extended: false })) // 이건 뭘까요?
 app.use(cookieParser())
+app.use(loginChecker(sessions))
 app.use(express.static(path.join(__dirname, 'public')))
 
 //register router
