@@ -6,7 +6,9 @@ module.exports = (express, database, sessions) => {
      */
     router.get('/', (req, res, next) => {
         const sessionId = req.cookies['session-id']
-        res.locals.userName = ''
+        const session   = sessions.get(sessionId)
+        
+        res.locals.userName = session ? session.name : ''
         res.render('index')
     })
 
