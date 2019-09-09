@@ -38,25 +38,34 @@ module.exports = class {
     }
 
     /**
+     * 특정 세션 객체 반환
+     * @param {uuid string} sessionId 
+     */
+    get(sessionId) {
+        return this.sessions[sessionId]
+    }
+
+    /**
      * 10분마다 expire가 지난 세션 객체를 체크하여 삭제
      */
     registerExpireJob() {
+        console.log('session expire job registered')
+
         setInterval(() => {
             const now = new Date()
             const sessionsToExpire = []
 
-            for (let sessionId in Object.keys(this.sessions)) {
+            for (let sessionId in this.sessions) {
                 const session    = this.sessions[sessionId]
-                const expireDate = new Date()
+                const expireDate = new Date(session.expire)
 
-                expireDate.setTime(session.expire)
                 if (now.getTime() >= expireDate.getTime()) {
                     sessionsToExpire.push(sessionId)
                 }
             }
 
             sessionsToExpire.forEach(sessionId => {
-                delete this.sessions[sessionId]
+                this.remove(sessionId)
             })
         }, 1000 * 60 * 10 /* 10분 */)
     }

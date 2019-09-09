@@ -497,6 +497,7 @@ const validationChecker = {
             const invalidFields = this.getInvalidFields()
 
             if (invalidFields.length > 0) {
+                document.querySelector('#join-form').scrollIntoView()
                 invalidFields.forEach(field => {
                     this.createTooltip(field.target, field.msg)
                 })
@@ -504,6 +505,8 @@ const validationChecker = {
             }
 
             this.requestJoin().then(res => {
+                if (!res) return
+
                 alert('회원가입 완료')
                 location.href = '/'
             })
@@ -533,7 +536,7 @@ const validationChecker = {
                     }
                 }
             }).then(res => {
-                resolve(res.response)
+                resolve(res.data.response)
             })
         })
     },

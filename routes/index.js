@@ -5,6 +5,7 @@ module.exports = (express, database, sessions) => {
      * localhost:3000 으로 접속시 index.ejs를 rendering
      */
     router.get('/', (req, res, next) => {
+        const sessionId = req.cookies['session-id']
         res.locals.userName = ''
         res.render('index')
     })
@@ -22,7 +23,7 @@ module.exports = (express, database, sessions) => {
 
     /**
      * 회원가입 수행
-     * database.insert함수를 통해 id를 key값으로 하는 회원 정보 삽입
+     * database.insert 함수를 통해 id를 key값으로 하는 회원 정보 삽입
      */
     router.post('/join', (req, res, next) => {
         database.insert(req.body.id, req.body.userInfo)
@@ -30,7 +31,7 @@ module.exports = (express, database, sessions) => {
         const account = database.get(req.body.id)
         console.dir(account)
 
-        login(res, sessions, account.name)
+        makeCookieAndSession(res, sessions, account.name)
         res.json({ response: true})
     })
 
@@ -48,9 +49,15 @@ module.exports = (express, database, sessions) => {
     return router
 }
 
-const login = (res, sessions, name) => {
+/**
+ * 세션과 쿠키를 생성함으로써 유저를 로그인 상태로 만드는 함수
+ * @param {*} res 
+ * @param {*} sessions 
+ * @param {*} name 유저 이름
+ */
+const makeCookieAndSession = (res, sessions, name) => {
     const uuid = require('uuid/v4')()
-    const daysMillis = 1000 * 60 * 60 * 24
+    const daysMillis = 1000 * 60 * 60 * 24 //24시간
 
     res.cookie('session-id', uuid, {
         maxAge  : daysMillis,
