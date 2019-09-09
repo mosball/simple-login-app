@@ -24,7 +24,7 @@ const registerDependenceEvent = () => {
 
     } else if (location.hash === '#join') {
         rules.registerAllRulesEvents()
-        utils.registerAllUtilsEvents()
+        join.registerAllJoinEvent()
         validationChecker.registerAllCheckEvent()
 
     } else {
