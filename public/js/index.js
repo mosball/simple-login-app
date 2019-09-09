@@ -4,31 +4,18 @@ window.onload = () => {
 }
 
 const renderHTML = () => {
-    let indexHTML = `
-        ${headerComponent.getComponent()}
-        <div id = "body">
-            ${router.getBodyHTML()}
-        </div>
-        ${footerComponent.getComponent()}
-        ${rulesPopupComponent.getComponent()}
-    `
-    document.body.innerHTML = ''
-    document.body.insertAdjacentHTML('afterbegin', indexHTML)
+    const body = document.querySelector('#body')
+    body.innerHTML = router.getBodyHTML()
 
     registerDependenceEvent()
     displayMember()
 }
 
 const registerDependenceEvent = () => {
-    if (location.hash === '#login') {
-
-    } else if (location.hash === '#join') {
+    if (location.hash === '#join') {
         rules.registerAllRulesEvents()
         join.registerAllJoinEvent()
         validationChecker.registerAllCheckEvent()
-
-    } else {
-
     }
 
     registerShowBtnClickEvent()
@@ -54,17 +41,20 @@ const registerHashChangeEvent = () => {
 }
 
 const displayMember = () => {
-    if (userName) {
-        const header = document.querySelector('#header-btn-group')
+    const userName = document.querySelector('#user-name')
+
+    if (userName.innerTEXT.length > 0) {
         const showLogin = document.querySelector('#show-login')
         const showJoin = document.querySelector('#show-join')
 
         showJoin.style.display = 'none'
         showLogin.style.display = 'none'
-        header.insertAdjacentText('afterbegin', `${userName}님 환영합니다.`)
+        userName.innerTEXT = `${userName.innerTEXT}님 환영합니다.`
 
     } else {
         const logout = document.querySelector('#logout')
+        
         logout.style.display = 'none'
+        userName.style.display = 'none'
     }
 }

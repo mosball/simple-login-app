@@ -1,7 +1,7 @@
 const loginComponent = {
     getComponent() {
         return `
-        <form id="login-form" method="POST" action="">
+        <form id="login-form" method="POST" action="/login">
             <div class="row mt-3">
                 <input class="col" type="text" name="id" placeholder="아이디"/>
             </div>

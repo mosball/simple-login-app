@@ -12,6 +12,9 @@ const headerComponent = {
                 <button id="show-join">
                     회원가입
                 </button>
+                <span id="user-name">
+                    <%= userName %>
+                </span>
                 <button id="logout">
                     로그아웃
                 </button>

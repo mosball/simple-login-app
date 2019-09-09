@@ -42,7 +42,10 @@ module.exports = (express, database, sessions) => {
      * 
      */
     router.post('/login', (req, res, next) => {
+        console.log(req.body.id)
+        console.log(req.body.password)
 
+        res.locals.test = 'a'
         res.json({
             response: true
         })
