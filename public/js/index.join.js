@@ -60,6 +60,9 @@ const join = {
         interestInput.addEventListener('keydown', (e) => {
             if (e.keyCode === 8 && e.target.value === '') {
                 const targetInterestBox = this.getLastInterestBox()
+
+                if (!targetInterestBox) return 
+                
                 e.target.value = `${targetInterestBox.childNodes[1].textContent} `
                 targetInterestBox.remove()
             }
