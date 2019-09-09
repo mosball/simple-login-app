@@ -39,6 +39,10 @@ header > #header-intro > a {
     text-decoration: none;
 }
 
+header #user-name-wrap {
+    display: inline-block;
+}
+
 #body {
     min-height: 600px;
     padding:60px;

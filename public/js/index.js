@@ -4,7 +4,7 @@ window.onload = () => {
 }
 
 const renderHTML = () => {
-    const body = document.querySelector('#body')
+    const body = utils.$('#body')
     body.innerHTML = router.getBodyHTML()
 
     registerDependenceEvent()
@@ -12,7 +12,10 @@ const renderHTML = () => {
 }
 
 const registerDependenceEvent = () => {
-    if (location.hash === '#join') {
+    if (location.hash === '#login') {
+        login.registerAllLoginEvent()
+        
+    } else if (location.hash === '#join') {
         rules.registerAllRulesEvents()
         join.registerAllJoinEvent()
         validationChecker.registerAllCheckEvent()
@@ -22,8 +25,8 @@ const registerDependenceEvent = () => {
 }
 
 const registerShowBtnClickEvent = () => {
-    const showLogin = document.querySelector('#show-login')
-    const showJoin  = document.querySelector('#show-join')
+    const showLogin = utils.$('#show-login')
+    const showJoin  = utils.$('#show-join')
 
     showLogin.addEventListener('click', () => {
         location.href = `${location.pathname}#login`
@@ -41,20 +44,24 @@ const registerHashChangeEvent = () => {
 }
 
 const displayMember = () => {
-    const userName = document.querySelector('#user-name')
+    const userName     = utils.$('#user-name')
+    const userNameWrap = utils.$('#user-name-wrap')
+    const logout       = utils.$('#logout')
+    const showLogin    = utils.$('#show-login')
+    const showJoin     = utils.$('#show-join')
 
-    if (userName.innerTEXT.length > 0) {
-        const showLogin = document.querySelector('#show-login')
-        const showJoin = document.querySelector('#show-join')
+    userNameWrap.style.display = 'none'
+    logout.style.display       = 'none'
+    showJoin.style.display     = 'none'
+    showLogin.style.display    = 'none'
 
-        showJoin.style.display = 'none'
-        showLogin.style.display = 'none'
-        userName.innerTEXT = `${userName.innerTEXT}님 환영합니다.`
+    if (userName.textContent.trim().length > 0) {
+        logout.style.display       = ''
+        userNameWrap.style.display = ''
+        userName.innerText = userName.textContent.trim()
 
     } else {
-        const logout = document.querySelector('#logout')
-        
-        logout.style.display = 'none'
-        userName.style.display = 'none'
+        showJoin.style.display  = ''
+        showLogin.style.display = ''
     }
 }

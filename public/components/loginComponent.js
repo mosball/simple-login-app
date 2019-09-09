@@ -9,7 +9,7 @@ const loginComponent = {
                 <input class="col" type="password" name="password" placeholder="비밀번호"/>
             </div>
             <div class="row mt-3">
-                <input class="col bg-info border-0 text-white" type="submit" value="로그인"/>
+                <input class="col bg-info border-0 text-white" id="login-btn" type="button" value="로그인"/>
             </div>
         </form>
         `

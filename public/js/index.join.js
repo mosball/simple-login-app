@@ -8,7 +8,7 @@ const join = {
     },
 
     registerInputFocusEvent() {
-        const inputs = document.querySelectorAll('.join-form-box-input > *')
+        const inputs = utils.$$('.join-form-box-input > *')
         const focusStyle = '1px solid #5a96ff'
         const focusOutStyle = '1px solid #e0e0e0'
 
@@ -24,7 +24,7 @@ const join = {
     },
     
     registerAddInterestEvent() {
-        const interestInput = document.querySelector('#interest-field .join-form-box-input > input')
+        const interestInput = utils.$('#interest-field .join-form-box-input > input')
 
         interestInput.addEventListener('keyup', (e) => {
             const inputText = e.target.value
@@ -49,13 +49,13 @@ const join = {
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('interest-box-x')) {
                 e.target.parentNode.remove()
-                document.querySelector('#interest-field .join-form-box-input > input').focus()
+                utils.$('#interest-field .join-form-box-input > input').focus()
             }
         })
     },
 
     registerModifyInterestEvent() {
-        const interestInput = document.querySelector('#interest-field .join-form-box-input > input')
+        const interestInput = utils.$('#interest-field .join-form-box-input > input')
 
         interestInput.addEventListener('keydown', (e) => {
             if (e.keyCode === 8 && e.target.value === '') {
@@ -67,12 +67,12 @@ const join = {
     },
 
     getLastInterestBox() {
-        const interestBoxs = document.querySelectorAll('.interest-box')
+        const interestBoxs = utils.$$('.interest-box')
         return interestBoxs[interestBoxs.length - 1]
     },
 
     registerInitAllFieldEvent() {
-        const initButton = document.querySelector('#init-btn')
+        const initButton = utils.$('#init-btn')
 
         initButton.addEventListener('click', () => {
             if (confirm('모든 내용을 새로 작성하시겠습니까?')) {
@@ -82,7 +82,7 @@ const join = {
     },
 
     initAllField() {
-        const fields = document.querySelectorAll('.join-form-box-input > *')
+        const fields = utils.$$('.join-form-box-input > *')
 
         fields.forEach(field => {
             if (field.getAttribute('name') === 'interest') {
@@ -98,7 +98,7 @@ const join = {
 
             field.value = ''
             if (field.getAttribute('data-target')) {
-                document.querySelector(field.getAttribute('data-target')).innerHTML = ''
+                utils.$(field.getAttribute('data-target')).innerHTML = ''
             }
         })
     },

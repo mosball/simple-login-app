@@ -25,5 +25,13 @@ const utils = {
 
             clearInterval(interval)
         }, 50)
+    },
+
+    $(selector) {
+        return document.querySelector(selector)
+    },
+
+    $$(selector) {
+        return document.querySelectorAll(selector)
     }
  }

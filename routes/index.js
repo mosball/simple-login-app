@@ -31,7 +31,6 @@ module.exports = (express, database, sessions) => {
         database.insert(req.body.id, req.body.userInfo)
 
         const account = database.get(req.body.id)
-        console.dir(account)
 
         makeCookieAndSession(res, sessions, account.name)
         res.json({ response: true})
@@ -39,15 +38,19 @@ module.exports = (express, database, sessions) => {
 
     /**
      * 로그인 수행
-     * 
+     * database.get을 통해 회원 정보를 가져오고 회원의 password와 넘어온 password가 일치하는지 확인
+     * 일치한다면 세션 및 쿠키 생성
      */
     router.post('/login', (req, res, next) => {
-        console.log(req.body.id)
-        console.log(req.body.password)
+        const account  = database.get(req.body.id)
+        const isMember = account ? account.password === req.body.password : false
 
-        res.locals.test = 'a'
+        if (isMember) {
+            makeCookieAndSession(res, sessions, account.name)
+        }
+
         res.json({
-            response: true
+            response: isMember
         })
     })
 

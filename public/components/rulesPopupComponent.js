@@ -1,7 +1,0 @@
-const rulesPopupComponent = {
-    getComponent() {
-        return `
-        
-        `
-    }
-}

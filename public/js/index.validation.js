@@ -77,7 +77,7 @@ const validationChecker = {
 
     insertInfoMsg(element, msg, status) {
         const infoMsgTarget = element.getAttribute('data-target')
-        const infoMsgField  = document.querySelector(infoMsgTarget)
+        const infoMsgField  = utils.$(infoMsgTarget)
 
         if (!infoMsgField) return
 
@@ -121,7 +121,7 @@ const validationChecker = {
     },
 
     registerCheckEvent(cssSelector) {
-        const someInputField = document.querySelector(cssSelector)
+        const someInputField = utils.$(cssSelector)
 
         someInputField.addEventListener('focusout', (e) => {
             const valueToCheck = this.getFieldValue(e.target)
@@ -262,7 +262,7 @@ const validationChecker = {
                     status   : false
                 },
                 {
-                    condition: document.querySelector('#password-field input[name=password]').value !== password2,
+                    condition: utils.$('#password-field input[name=password]').value !== password2,
                     msg      : '비밀번호가 일치하지 않습니다.',
                     status   : false
                 },
@@ -343,7 +343,7 @@ const validationChecker = {
         return new Promise((resolve, reject) => {
             const flag = month !== '월'
             if (flag) {
-                document.querySelector('#birth-field input[name=day]').focus()
+                utils.$('#birth-field input[name=day]').focus()
             }
     
             resolve({
@@ -359,7 +359,7 @@ const validationChecker = {
         return new Promise((resolve, reject) => {
             day = day !== '' ? Number(day) : day
     
-            const monthText = this.getFieldValue(document.querySelector('#birth-field select[name=month]'))
+            const monthText = this.getFieldValue(utils.$('#birth-field select[name=month]'))
             const lastDay   = this.getLastDay(monthText)
             const checkList = [
                 {
@@ -487,17 +487,17 @@ const validationChecker = {
     },
 
     registerJoinButtonClickEvent() {
-        const joinButton = document.querySelector('#join-btn')
+        const joinButton = utils.$('#join-btn')
 
         joinButton.addEventListener('click', (e) => {
-            document.querySelectorAll('.invalid-tooltip').forEach(tooltip => {
+            utils.$$('.invalid-tooltip').forEach(tooltip => {
                 tooltip.remove()
             })
 
             const invalidFields = this.getInvalidFields()
 
             if (invalidFields.length > 0) {
-                document.querySelector('#join-form').scrollIntoView()
+                utils.$('#join-form').scrollIntoView()
                 invalidFields.forEach(field => {
                     this.createTooltip(field.target, field.msg)
                 })
@@ -508,7 +508,9 @@ const validationChecker = {
                 if (!res) return
 
                 alert('회원가입 완료')
-                location.href = '/'
+
+                utils.$('#user-name').innerText = this.fieldManager.name.value
+                location.hash = ''
             })
         })
     },
@@ -542,7 +544,7 @@ const validationChecker = {
     },
 
     createTooltip(targetElement, msg) {
-        const target   = document.querySelector(targetElement)
+        const target   = utils.$(targetElement)
         const position = this.getOffset(target)
         const tooltip  = document.createElement('div')
         

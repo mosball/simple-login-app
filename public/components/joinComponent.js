@@ -5,7 +5,7 @@ const joinComponent = {
             <div class="join-form-box">
                 <h3>회원가입</h3>
             </div>
-    
+            
             <div id="id-field" class="join-form-box">
                 <div class="join-form-box-title">
                     아이디
