@@ -15,7 +15,7 @@ const renderHTML = () => {
 
 const registerDependenceEvent = () => {
     if (location.hash === '#login') {
-        login.registerAllLoginEvent()
+        login.registerLoginBtnClickEvent()
         
     } else if (location.hash === '#join') {
         rules.registerAllRulesEvents()

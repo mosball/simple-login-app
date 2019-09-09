@@ -1,8 +1,4 @@
 const login = {
-    registerAllLoginEvent() {
-        this.registerLoginBtnClickEvent()
-    },
-
     registerLoginBtnClickEvent() {
         utils.$('#login-btn').addEventListener('click', () => {
             axios({
