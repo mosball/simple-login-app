@@ -54,6 +54,21 @@ module.exports = (express, database, sessions) => {
         })
     })
 
+    /**
+     * 로그아웃 수행
+     * 쿠키와 세션 정보 모두 삭제
+     */
+    router.post('/logout', (req, res, next) => {
+        //쿠키, 세션 삭제
+        const sessionId = req.cookies['session-id']
+        sessions.remove(sessionId)
+        res.clearCookie('session-id')
+
+        res.json({
+            response: true
+        })
+    })
+
     return router
 }
 

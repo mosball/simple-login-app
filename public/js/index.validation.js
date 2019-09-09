@@ -508,9 +508,7 @@ const validationChecker = {
                 if (!res) return
 
                 alert('회원가입 완료')
-
-                utils.$('#user-name').innerText = this.fieldManager.name.value
-                location.hash = ''
+                location.href = '/'
             })
         })
     },

@@ -13,9 +13,8 @@ const login = {
                     password: utils.$('#login-form input[name=password]').value
                 }
             }).then(res => {
-                if (res.response) {
-                    utils.$('#user-name').innerText = this.fieldManager.name.value
-                    location.hash = ''
+                if (res.data.response) {
+                    location.href = '/'
                 } else {
                     alert('아이디 또는 비밀번호가 일치하지 않습니다.')
                 }

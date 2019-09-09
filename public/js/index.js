@@ -1,6 +1,8 @@
 window.onload = () => {
     renderHTML()
     registerHashChangeEvent()
+    registerLogoutBtnClickEvent()
+    registerShowBtnClickEvent()
 }
 
 const renderHTML = () => {
@@ -20,8 +22,6 @@ const registerDependenceEvent = () => {
         join.registerAllJoinEvent()
         validationChecker.registerAllCheckEvent()
     }
-
-    registerShowBtnClickEvent()
 }
 
 const registerShowBtnClickEvent = () => {
@@ -43,10 +43,23 @@ const registerHashChangeEvent = () => {
     })
 }
 
+const registerLogoutBtnClickEvent = () => {
+    utils.$('#logout-btn').addEventListener('click', () => {
+        axios({
+            url: '/logout',
+            method: 'post'
+        }).then(res => {
+            if (res.data.response) {
+                location.href = '/'
+            }
+        })
+    })
+}
+
 const displayMember = () => {
     const userName     = utils.$('#user-name')
     const userNameWrap = utils.$('#user-name-wrap')
-    const logout       = utils.$('#logout')
+    const logout       = utils.$('#logout-btn')
     const showLogin    = utils.$('#show-login')
     const showJoin     = utils.$('#show-join')
 
