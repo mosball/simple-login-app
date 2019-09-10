@@ -3,7 +3,8 @@ module.exports = class {
      * 데이터베이스 객체 초기화
      */
     constructor() {
-        this.database = {}
+        this.fs = require('fs')
+        this.database = this.getSavedData()
     }
 
     /**
@@ -14,6 +15,7 @@ module.exports = class {
      */
     insert(key, value) {
         this.database[key] = value
+        this.save()
     }
 
     /**
@@ -42,5 +44,15 @@ module.exports = class {
             console.log(`id : ${id}`)
             console.log(`info : ${JSON.stringify(this.database[id])}`)
         }
+    }
+
+    /**
+     * database에 저장되있는 모든 데이터를 파일에 저장
+     */
+    save() {
+        const jsonString = JSON.stringify(this.database)
+        this.fs.writeFile(`${__dirname}/userData`, jsonString, 'UTF-8', () => {
+            console.log('data save completed')
+        })
     }
 }
