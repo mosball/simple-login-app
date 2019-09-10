@@ -8,8 +8,15 @@ module.exports = class {
     }
 
     /**
+     * userData파일에서 데이터를 가져온 후 database객체 초기화
+     */
+    getSavedData() {
+        const data = this.fs.readFileSync(`${__dirname}/userData`, 'UTF-8')
+        return data ? JSON.parse(data) : {}
+    }
+
+    /**
      * database객체에 데이터를 삽입
-     * 
      * @param {string} key user id
      * @param {object} value user info
      */
