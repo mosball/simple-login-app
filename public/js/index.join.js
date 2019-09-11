@@ -1,4 +1,4 @@
-const join = {
+export const join = {
     registerAllJoinEvent() {
         this.registerInputFocusEvent()
         this.registerAddInterestEvent()

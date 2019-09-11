@@ -2,6 +2,7 @@ import {login} from './index.login.js'
 import {validationChecker} from './index.validation.js'
 import {router} from './index.router.js'
 import {rules} from './index.rules.js'
+import {join} from './index.join.js'
 
 window.onload = () => {
     renderHTML()
