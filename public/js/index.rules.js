@@ -1,4 +1,4 @@
-const rules = {
+export const rules = {
     rulesReadingFlag:false,
 
     registerAllRulesEvents() {

@@ -1,3 +1,8 @@
+import {login} from './index.login.js'
+import {validationChecker} from './index.validation.js'
+import {router} from './index.router.js'
+import {rules} from './index.rules.js'
+
 window.onload = () => {
     renderHTML()
     registerHashChangeEvent()
@@ -16,7 +21,7 @@ const renderHTML = () => {
 const registerDependenceEvent = () => {
     if (location.hash === '#login') {
         login.registerLoginBtnClickEvent()
-        
+
     } else if (location.hash === '#join') {
         rules.registerAllRulesEvents()
         join.registerAllJoinEvent()

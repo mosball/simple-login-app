@@ -1,4 +1,4 @@
-const validationChecker = {
+export const validationChecker = {
     fieldManager: {
         id: {
             target: '#id-field > .join-form-box-input',

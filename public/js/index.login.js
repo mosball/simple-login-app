@@ -1,4 +1,4 @@
-const login = {
+export const login = {
     registerLoginBtnClickEvent() {
         utils.$('#login-btn').addEventListener('click', this.loginBtnClickHandler)
         utils.$('#login-form input[name=password]').addEventListener('keypress', (e) => {

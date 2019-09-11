@@ -1,4 +1,4 @@
-const router = {
+export const router = {
     getBodyHTML () {
         switch (location.hash) {
             case '#login': return loginComponent.getComponent()
