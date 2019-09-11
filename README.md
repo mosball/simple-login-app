@@ -15,9 +15,9 @@
 > 자바스크립트 풀스택을 이용한 회원가입, 로그인 앱
 
 > 데모 페이지
-!![demo](https://user-images.githubusercontent.com/35107576/64668684-76385980-d499-11e9-9fe2-50ffdfaf08c5.PNG)
+![demo](https://user-images.githubusercontent.com/35107576/64668684-76385980-d499-11e9-9fe2-50ffdfaf08c5.PNG)
 
-### 🏠 [Homepage](https://mosball-app1.herokuapp.com)
+### 🏠 [Demopage](https://mosball-app1.herokuapp.com)
 
 ## Install
 
