@@ -1,3 +1,5 @@
+import {validationChecker} from './index.validation.js'
+
 export const rules = {
     rulesReadingFlag:false,
 
